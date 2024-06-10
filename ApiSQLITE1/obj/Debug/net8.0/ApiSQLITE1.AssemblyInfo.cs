@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiSQLITE1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc237d9f39ed42c6ee5b5888cac73c153bb7f90d")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiSQLITE1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiSQLITE1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

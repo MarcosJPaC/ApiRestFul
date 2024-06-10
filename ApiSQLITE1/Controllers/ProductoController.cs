@@ -39,39 +39,40 @@ public class ProductoController : ControllerBase
         return Producto;
     }
     [HttpPost("Create")]
-    public async Task<ActionResult<Producto>> CrearProduto(string nombre, string descripcion, int precio, bool status)
+    public async Task<ActionResult<Producto>> CrearProduto([FromBody] Producto nuevoProducto)
     {
-        int estadostatus = status ? 1 : 0;
-
-        var NuevaProducto = new Producto
+        if (nuevoProducto == null)
         {
-            nombre = nombre,
-            descripcion = descripcion,
-            precio = precio,
-            status = estadostatus,
-        };
+            return BadRequest();
+        }
 
-        _context.Producto.Add(NuevaProducto);
+        _context.Producto.Add(nuevoProducto);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetProductoPorId), new { id = NuevaProducto.idProducto }, NuevaProducto);
+        return CreatedAtAction(nameof(GetProductoPorId), new { id = nuevoProducto.idProducto }, nuevoProducto);
     }
+
 
 
     // PUT: api/Cliente/UpdateCliente/5
     [HttpPut("Update/{id}")]
-    public async Task<IActionResult> ActualizarProducto(int id, string nombre, string descripcion, int precio)
+    public async Task<IActionResult> ActualizarProducto(int id, [FromBody] Producto actualizadoProducto)
     {
-        var categoria = await _context.Producto.FindAsync(id);
+        if (id != actualizadoProducto.idProducto)
+        {
+            return BadRequest();
+        }
 
-        if (categoria == null)
+        var producto = await _context.Producto.FindAsync(id);
+        if (producto == null)
         {
             return NotFound();
         }
 
-        categoria.nombre = nombre;
-        categoria.descripcion = descripcion;
-        categoria.precio = precio;
+        producto.nombre = actualizadoProducto.nombre;
+        producto.descripcion = actualizadoProducto.descripcion;
+        producto.precio = actualizadoProducto.precio;
+        producto.status = actualizadoProducto.status;
 
         try
         {
@@ -91,6 +92,7 @@ public class ProductoController : ControllerBase
 
         return NoContent();
     }
+
 
     // DELETE: api/Cliente/DeleteCliente/5
     [HttpDelete("Delete/{id}")]

@@ -15,7 +15,7 @@ namespace ApiSQLITE1
         public string descripcion { get; set; }
 
         [Required]
-        public int precio { get; set; }
+        public double precio { get; set; }
         [Required]
         public int status { get; set; }
     }
